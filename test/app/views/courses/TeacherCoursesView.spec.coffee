@@ -24,22 +24,29 @@ describe 'TeacherCoursesView', ->
       view.campaigns.fakeRequests[0].respondWith({ status: 200, responseText: campaigns.stringify() })
       view.courses.fakeRequests[0].respondWith({ status: 200, responseText: courses.stringify() })
       view.render()
-      jasmine.demoEl(view.$el)
       done()
 
-    it 'opens HeroSelectModal for the first level of the first course', ->
-      spyOn(view, 'openModalView')
+    it 'opens HeroSelectModal for the first level of the first course', (done) ->
+      spyOn(view, 'openModalView').and.callFake (modal) -> modal
       spyOn(application.router, 'navigate')
       view.$('.play-level-button').first().click()
       expect(view.openModalView).toHaveBeenCalled()
       expect(application.router.navigate).not.toHaveBeenCalled()
       args = view.openModalView.calls.argsFor(0)
       expect(args[0] instanceof HeroSelectModal).toBe(true)
+      view.heroSelectModal.trigger('hero-select:success')
+      expect(application.router.navigate).not.toHaveBeenCalled()
+      view.heroSelectModal.trigger('hide')
+      _.defer ->
+        expect(application.router.navigate).toHaveBeenCalled()
+        done()
 
     it "doesn't open HeroSelectModal for other levels", ->
       spyOn(view, 'openModalView')
       spyOn(application.router, 'navigate')
-      view.$('.level-select').first().val('level-2')
+      secondLevelSlug = view.$('.level-select:first option:nth(2)').val()
+      view.$('.level-select').first().val(secondLevelSlug)
+      view.$('.play-level-button').first().click()
       expect(view.openModalView).not.toHaveBeenCalled()
       expect(application.router.navigate).toHaveBeenCalled()
 
