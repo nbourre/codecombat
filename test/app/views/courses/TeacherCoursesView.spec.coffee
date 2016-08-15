@@ -1,0 +1,53 @@
+TeacherCoursesView = require 'views/courses/TeacherCoursesView'
+HeroSelectModal = require 'views/courses/HeroSelectModal'
+Classrooms = require 'collections/Classrooms'
+Courses = require 'collections/Courses'
+Campaigns = require 'collections/Campaigns'
+Levels = require 'collections/Levels'
+auth = require 'core/auth'
+factories = require 'test/app/factories'
+
+describe 'TeacherCoursesView', ->
+
+  modal = null
+  view = null
+
+  describe 'Play Level form', ->
+    beforeEach (done) ->
+      view = new TeacherCoursesView()
+      classrooms = new Classrooms([factories.makeClassroom()])
+      levels1 = new Levels([ factories.makeLevel({ name: '' }), factories.makeLevel(), factories.makeLevel() ])
+      levels2 = new Levels([ factories.makeLevel(), factories.makeLevel(), factories.makeLevel() ])
+      campaigns = new Campaigns([factories.makeCampaign({}, { levels: levels1 }), factories.makeCampaign({}, { levels: levels2 })])
+      courses = new Courses([factories.makeCourse({}, {campaign: campaigns.get(0)}), factories.makeCourse({}, {campaign: campaigns.get(1)})])
+      view.ownedClassrooms.fakeRequests[0].respondWith({ status: 200, responseText: classrooms.stringify() })
+      view.campaigns.fakeRequests[0].respondWith({ status: 200, responseText: campaigns.stringify() })
+      view.courses.fakeRequests[0].respondWith({ status: 200, responseText: courses.stringify() })
+      view.render()
+      jasmine.demoEl(view.$el)
+      done()
+
+    it 'opens HeroSelectModal for the first level of the first course', ->
+      spyOn(view, 'openModalView')
+      spyOn(application.router, 'navigate')
+      view.$('.play-level-button').first().click()
+      expect(view.openModalView).toHaveBeenCalled()
+      expect(application.router.navigate).not.toHaveBeenCalled()
+      args = view.openModalView.calls.argsFor(0)
+      expect(args[0] instanceof HeroSelectModal).toBe(true)
+
+    it "doesn't open HeroSelectModal for other levels", ->
+      spyOn(view, 'openModalView')
+      spyOn(application.router, 'navigate')
+      view.$('.level-select').first().val('level-2')
+      expect(view.openModalView).not.toHaveBeenCalled()
+      expect(application.router.navigate).toHaveBeenCalled()
+
+    it "doesn't open HeroSelectModal for other courses", ->
+      spyOn(view, 'openModalView')
+      spyOn(application.router, 'navigate')
+      view.$('.play-level-button').get(1).click()
+      expect(view.openModalView).not.toHaveBeenCalled()
+      expect(application.router.navigate).toHaveBeenCalled()
+
+    it "remembers the selected hero", ->
