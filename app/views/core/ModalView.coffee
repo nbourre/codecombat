@@ -52,7 +52,7 @@ module.exports = class ModalView extends CocoView
 
   hide: ->
     @trigger 'hide'
-    @$el.removeClass('fade').modal 'hide'
+    @$el.removeClass('fade').modal 'hide' unless @destroyed
 
   onHidden: ->
     @trigger 'hidden'

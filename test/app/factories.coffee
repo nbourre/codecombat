@@ -47,6 +47,7 @@ module.exports = {
     attrs = _.extend({}, {
       _id: _id
       name: _.string.humanize(_id)
+      slug: _.string.dasherize(_id)
       original: _id+'_original'
       version:
         major: 0

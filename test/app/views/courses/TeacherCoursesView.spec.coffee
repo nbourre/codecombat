@@ -16,10 +16,10 @@ describe 'TeacherCoursesView', ->
     beforeEach (done) ->
       view = new TeacherCoursesView()
       classrooms = new Classrooms([factories.makeClassroom()])
-      levels1 = new Levels([ factories.makeLevel({ name: '' }), factories.makeLevel(), factories.makeLevel() ])
+      levels1 = new Levels([ factories.makeLevel({ name: 'Dungeons of Kithgard' }), factories.makeLevel(), factories.makeLevel() ])
       levels2 = new Levels([ factories.makeLevel(), factories.makeLevel(), factories.makeLevel() ])
       campaigns = new Campaigns([factories.makeCampaign({}, { levels: levels1 }), factories.makeCampaign({}, { levels: levels2 })])
-      courses = new Courses([factories.makeCourse({}, {campaign: campaigns.get(0)}), factories.makeCourse({}, {campaign: campaigns.get(1)})])
+      courses = new Courses([factories.makeCourse({}, {campaign: campaigns.at(0)}), factories.makeCourse({}, {campaign: campaigns.at(1)})])
       view.ownedClassrooms.fakeRequests[0].respondWith({ status: 200, responseText: classrooms.stringify() })
       view.campaigns.fakeRequests[0].respondWith({ status: 200, responseText: campaigns.stringify() })
       view.courses.fakeRequests[0].respondWith({ status: 200, responseText: courses.stringify() })
