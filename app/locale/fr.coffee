@@ -1370,22 +1370,22 @@ module.exports = nativeDescription: "français", englishDescription: "French", t
 #    select_this_hero: "Select this Hero"
 
   teacher:
-#    teacher_dashboard: "Teacher Dashboard" # Navbar
-#    my_classes: "My Classes"
-#    courses: "Course Guides"
-#    enrollments: "Student Licenses"
-#    resources: "Resources"
-#    help: "Help"
-#    students: "Students" # Shared
-#    language: "Language"
-#    edit_class_settings: "edit class settings"
-#    complete: "Complete"
-#    access_restricted: "Account Update Required"
-#    teacher_account_required: "A teacher account is required to access this content."
-#    create_teacher_account: "Create Teacher Account"
-#    what_is_a_teacher_account: "What's a Teacher Account?"
-#    teacher_account_explanation: "A CodeCombat Teacher account allows you to set up classrooms, monitor students’ progress as they work through courses, manage licenses and access resources to aid in your curriculum-building."
-#    current_classes: "Current Classes"
+    teacher_dashboard: "Contrôles enseignant" # Navbar
+    my_classes: "Mes Classes"
+    courses: "Guide de cours"
+    enrollments: "Licences étudiantes"
+    resources: "Ressources"
+    help: "Aide"
+    students: "Étudiants" # Shared
+    language: "Langues"
+    edit_class_settings: "Configurer la classe"
+    complete: "Completez"
+    access_restricted: "Mise à jour du compte requis"
+    teacher_account_required: "Un compte enseignant est requis pour accéder à ce contenu."
+    create_teacher_account: "Créer un compte enseignant"
+    what_is_a_teacher_account: "Qu'est-ce qu'un compte enseignant?"
+    teacher_account_explanation: "Un compte enseignant CodeCombat vous permet de gérer des classes, suivre le progrès des étudiants lorsqu'il travaille sur les cours, gérer les licences et accéder aux ressources pour vous aider à rédiger votre sillabus."
+    current_classes: "Classes actives"
     archived_classes: "Cours Archivés"
 #    archived_classes_blurb: "Classes can be archived for future reference. Unarchive a class to view it in the Current Classes list again."
     view_class: "Voir Cours"
@@ -1394,7 +1394,7 @@ module.exports = nativeDescription: "français", englishDescription: "French", t
     unarchive_this_class: "Désarchiver ce cours"
     no_students_yet: "Ce cours n'a pas encore d'élèves."
 #    try_refreshing: "(You may need to refresh the page)"
-    add_students: "Ajourter Elèves"
+    add_students: "Ajouter Élèves"
     create_new_class: "Créer une Nouveau Cour"
 #    class_overview: "Class Overview" # View Class page
 #    avg_playtime: "Average level playtime"
